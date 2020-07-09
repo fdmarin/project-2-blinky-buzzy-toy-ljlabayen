@@ -38,6 +38,17 @@ void buzzer_set_period(short cycles) /* buzzer clock = 2MHz.  (period of 1k resu
   CCR1 = cycles >> 1;		/* one half cycle */
 }
 
+void beep(){
+  int notes[] = {A4, 0};
+
+  int j = 0;
+  for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
+    j = notes[i];
+    buzzer_set_period(j);
+    __delay_cycles(1200000);
+    }
+}
+
 void randomSong(){
   //    timerAUpmode();		/* used to drive speaker */
   // P2SEL2 &= ~(BIT6 | BIT7);
@@ -47,7 +58,7 @@ void randomSong(){
     int notes[] = {A4, 0, A3, 0, E3, 0, G3, 0, F4, 0, A4, 0, A3, 0, E3, 0, G3, 0, F4, 0};
     
     int j = 0;
-    for(int i = 0; i < 20; i++) {
+    for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
       j = notes[i];
       buzzer_set_period(j);
       __delay_cycles(1200000);
@@ -60,7 +71,7 @@ void sharkSong(){
   int notes[] = {C5,C5,C5,C5,0,0,D4,D4,0,0,F4,0,0,0,F4,0,F4,0,F4,0,F4,0,F4,0,F4,0,F4,0,0,0};
 
   int j = 0;
-  for(int i = 0; i < 33; i++) {
+  for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
     j = notes[i];
     buzzer_set_period(j);
     __delay_cycles(1200000);
@@ -70,7 +81,7 @@ void sharkSong(){
 void spongebobSong(){
   int notes[] = {G3,0,A4,0,B3,0,A4,0,0,B4,G3,0,0,D4,G3,0};
   int j = 0;
-  for(int i = 0; i < 16; i++) {
+  for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
     j = notes[i];
     buzzer_set_period(j);
     __delay_cycles(2000000);
@@ -81,7 +92,7 @@ void spongebobSong(){
 void nokiaSong(){
   int notes[] = {E4,0,D4,0,F4,0,G3,0,C5,0,B3,0,D4,0,E4,0,B3,0,A4,0,C5,E4,E4,0,A4,A4,A4,0,0};
   int j = 0;
-  for(int i = 0; i < 33; i++) {
+  for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
     j = notes[i];
     buzzer_set_period(j);
     __delay_cycles(3000000);
