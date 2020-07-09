@@ -11,8 +11,8 @@
 
 void switch_init();
 void switch_interrupt_handler();
-void stateCall(int state);
+//void stateCall(int state);
 
-extern char switch_state_down, switch_state_changed, toggle_state; /* effectively boolean */
+extern char switch_state_down, switch_state_changed, state; /* effectively boolean */
 
 #endif // included

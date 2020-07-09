@@ -2,24 +2,12 @@
 #include "led.h"
 #include "switches.h"
 #include "buzzer.h"
-char both, red, green;
+#include "stateMachine.h"
 
 void led_init()
 {
   P1DIR |= LEDS;		// bits attached to leds are output
   switch_state_changed = 1;
-
-  /*  if(both){
-    greenLights();
-    redLights();
-  }
-  else if(red)
-    redLights();
-  else if(green)
-    greenLights();
-
-  both = red = green = 0;
-  */
 }
 
 void greenLights(){
@@ -41,21 +29,38 @@ void redLights(){
 }
 
 void bothLights(){
-  for(int i = 0; i < 10; i++){
+  for(int j = 0; j < 10; j++){
     P1OUT = LED_RED;
     __delay_cycles(800000);
     P1OUT = LED_GREEN;
     __delay_cycles(800000);
-        P1OUT = !LED_RED;
+    P1OUT = !LED_RED;
     __delay_cycles(800000);
     P1OUT = !LED_GREEN;
     __delay_cycles(800000);
   }
 }
+void dimLights(){
+  for(int j= 0; j <10000; j++){
+    P1OUT = LED_RED;
+    P1OUT = LED_GREEN;
+    P1OUT = !LED_RED;
+    P1OUT = !LED_GREEN;
+  }
+}
+
+void dimBlink(){
+  for(int i = 0; i < 20; i++){
+    dimLights();
+    __delay_cycles(2000000);
+    P1OUT = !LED_RED;
+    P1OUT = !LED_GREEN;
+  }
+}
 void led_update(){
   //  if (switch_state_changed) {
   // char ledFlags = 0; /* by default, no LEDs on */
-  switch(toggle_state) {
+  switch(state) {
   case 1:
     redLights();
     randomSong();
