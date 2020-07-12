@@ -12,7 +12,7 @@ Pushing this button plays a small portion of the "Baby Shark" song followed by
 a dim slow blink from both red and green LEDs
 
 `Button #3`
-This button plays a nokia ring tone and will give a fast sequential blink
+This button plays error tones and will give a fast sequential blink
 from red and green LEDs
 
 `Button #4`

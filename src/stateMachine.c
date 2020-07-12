@@ -8,9 +8,6 @@
 // each case is dictated by which button is pressed from our switches.c file
 void state_advance(){
   switch(state){
-  case 0:
-    beep();
-    break;
   case 1:
     randomSong();
     greenLights();
@@ -22,8 +19,9 @@ void state_advance(){
     state = 0;
     break;
   case 3:
-    nokiaSong();
+    errorSong();
     redLights();
+    errorSong();
     greenLights();
     state = 0;
     break;

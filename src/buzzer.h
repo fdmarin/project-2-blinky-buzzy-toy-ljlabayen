@@ -8,6 +8,6 @@ void beep();
 void randomSong();
 void sharkSong();
 void spongebobSong();
-void nokiaSong();
+void errorSong();
 
 #endif // included

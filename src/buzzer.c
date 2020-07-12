@@ -71,11 +71,11 @@ void spongebobSong(){
   }
 }
 // method to play an old cellphone ring tone
-void nokiaSong(){
-  int notes[] = {E4,0,D4,0,F4,0,G3,0,C5,0,B3,0,D4,0,E4,0,B3,0,A4,0,C5,E4,E4,0,A4,A4,A4,0,0};
+void errorSong(){
+  int notes[] = {E4,0,E4,0,C5,0,C5,B4,B4,500,0};
 
   for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
     buzzer_set_period(notes[i]);
-    __delay_cycles(3000000);
+    __delay_cycles(300000);
   }  
 }
