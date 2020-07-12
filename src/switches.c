@@ -28,45 +28,17 @@ void switch_init()			/* setup switch */
 void switch_interrupt_handler()
 {
   char p2val = switch_update_interrupt_sense();
-  if (p2val & SW1 ? 0 : 1){
+  if (p2val & SW1 ? 0 : 1){ //used if p2val and SW1 is true (button 1 is pressed)
     state = 1;
-    //stateCall(1);
   }
-  else if (p2val & SW2 ? 0 : 1){
+  else if (p2val & SW2 ? 0 : 1){ //used if p2val and SW2 is true (button 2 is pressed)
     state = 2;
-    // stateCall(2);
   }
-  else if (p2val & SW3 ? 0 : 1){
+  else if (p2val & SW3 ? 0 : 1){ //used if p2val and SW3 is true (button 3 is pressed)
     state = 3;
-    // stateCall(3);
   }
-  else if (p2val & SW4 ? 0 : 1){
+  else if (p2val & SW4 ? 0 : 1){ //used if p2val and SW4 is true (button 4 is pressed)
     state = 4;
-    // stateCall(4);
   }
-  state_advance();
+  state_advance(); // call state advance using assigned value to state
 }
-/*
-void stateCall(int state) {
-  switch(state){
-  case 1:
-    randomSong();
-    greenLights();
-    break;
-  case 2:
-    sharkSong();
-    dimBlink();
-    break;
-  case 3:
-    redLights();
-    greenLights();
-    break;
-  case 4:
-    spongebobSong();
-    bothLights();
-    break;
-  default:
-    break;
-  }
-}
-*/

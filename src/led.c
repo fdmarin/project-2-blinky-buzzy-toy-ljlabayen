@@ -10,24 +10,26 @@ void led_init()
   switch_state_changed = 1;
 }
 
+// green blinking lights
 void greenLights(){
-  for(int i = 0; i < 10; i++){
-    P1OUT = LED_GREEN;
-    __delay_cycles(800000);
-    P1OUT = !LED_GREEN;
-    __delay_cycles(800000);
+  for(int i = 0; i < 10; i++){ // loop to blink the lights 10 times
+    P1OUT = LED_GREEN;         // turn on GREEN LED
+    __delay_cycles(800000);    // delay program at 800000 clock cycles
+    P1OUT = !LED_GREEN;        // turn off GREEN LED
+    __delay_cycles(800000);    // delay again
   }
 }
-
+// red blinking lights
 void redLights(){
-  for(int i = 0; i < 10; i++){
-    P1OUT = LED_RED;
-    __delay_cycles(800000);
-    P1OUT = !LED_RED;
-    __delay_cycles(800000);
+  for(int i = 0; i < 10; i++){ // loop to blink the lights 10 times
+    P1OUT = LED_RED;           // turn ON RED LED
+    __delay_cycles(800000);    // delay program at 800000 clock cycles
+    P1OUT = !LED_RED;          // turn OFF RED LED
+    __delay_cycles(800000);    // delay again
   }
 }
 
+// alternating green and red lights while delaying clock cycles
 void bothLights(){
   for(int j = 0; j < 10; j++){
     P1OUT = LED_RED;
@@ -40,8 +42,10 @@ void bothLights(){
     __delay_cycles(800000);
   }
 }
+
+// this method is used to blink the light fast enough to make it dim
 void dimLights(){
-  for(int j= 0; j <10000; j++){
+  for(int j= 0; j <10000; j++){ // turn LEDs on and off 10000 times
     P1OUT = LED_RED;
     P1OUT = LED_GREEN;
     P1OUT = !LED_RED;
@@ -49,6 +53,7 @@ void dimLights(){
   }
 }
 
+// dim blinking both LEDs
 void dimBlink(){
   for(int i = 0; i < 20; i++){
     dimLights();
@@ -57,37 +62,15 @@ void dimBlink(){
     P1OUT = !LED_GREEN;
   }
 }
+
 void led_update(){
-  //  if (switch_state_changed) {
-  // char ledFlags = 0; /* by default, no LEDs on */
-  switch(state) {
-  case 1:
-    redLights();
-    randomSong();
-    greenLights();
-    break;
-  case 2:
-    redLights();
-    greenLights();
-    break;
-  case 4:
-    greenLights();
-    break;
-  case 3:
-    redLights();
-    greenLights();
-    bothLights();
-    break;
-  default:
-    break;
-    // turn LED off; break;
-		       
-    // ledFlags |= switch_state_down ? LED_GREEN : 0;
-    // ledFlags |= switch_state_down ? 0 : LED_RED;
+  if (switch_state_changed) {
+    char ledFlags = 0; /* by default, no LEDs on */
+    ledFlags |= switch_state_down ? LED_RED : 0;
+    ledFlags |= switch_state_down ? 0 : LED_GREEN;
 
-    P1OUT &= (0xff - LEDS); // clear bits for off leds
-    // P1OUT |= ledFlags;         // set bits for on leds
+    P1OUT &= (0xff - LEDS) | ledFlags; // clear bits for off leds
+    P1OUT |= ledFlags;         // set bits for on leds
   }
-  // switch_state_changed = 0;
+  switch_state_changed = 0;
 }
-

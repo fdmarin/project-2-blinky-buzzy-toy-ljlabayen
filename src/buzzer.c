@@ -2,6 +2,7 @@
 #include "libTimer.h"
 #include "buzzer.h"
 
+// define musical note and its frequency
 #define A3 2273
 #define B3 2025
 #define G3 2551
@@ -18,13 +19,6 @@
 
 void buzzer_init()
 {
-    /* 
-       Direct timer A output "TA0.1" to P2.6.  
-        According to table 21 from data sheet:
-          P2SEL2.6, P2SEL2.7, anmd P2SEL.7 must be zero
-          P2SEL.6 must be 1
-        Also: P2.6 direction must be output
-    */
     timerAUpmode();		/* used to drive speaker */
     P2SEL2 &= ~(BIT6 | BIT7);
     P2SEL &= ~BIT7; 
@@ -38,63 +32,50 @@ void buzzer_set_period(short cycles) /* buzzer clock = 2MHz.  (period of 1k resu
   CCR1 = cycles >> 1;		/* one half cycle */
 }
 
+// simple beep noise
 void beep(){
+  // array to hold notes for our loop
   int notes[] = {A4, 0};
 
-  int j = 0;
+  // loop through our array of notes until the end
   for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
-    j = notes[i];
-    buzzer_set_period(j);
-    __delay_cycles(1200000);
+    buzzer_set_period(notes[i]); // call buzzer_set_period the a single note as parameter
+    __delay_cycles(1200000); // delay the program and wait x clock cycles
     }
 }
-
+// random set of notes to create a small tune
 void randomSong(){
-  //    timerAUpmode();		/* used to drive speaker */
-  // P2SEL2 &= ~(BIT6 | BIT7);
-  // P2SEL &= ~BIT7; 
-  // P2SEL |= BIT6;
-
     int notes[] = {A4, 0, A3, 0, E3, 0, G3, 0, F4, 0, A4, 0, A3, 0, E3, 0, G3, 0, F4, 0};
     
-    int j = 0;
     for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
-      j = notes[i];
-      buzzer_set_period(j);
+      buzzer_set_period(notes[i]);
       __delay_cycles(1200000);
-      //  P2SEL &= ~BIT7;
     }
-    // P2DIR &= ~BIT6; 
 }
-
+// method to play a short clip of the baby shark song
 void sharkSong(){
   int notes[] = {C5,C5,C5,C5,0,0,D4,D4,0,0,F4,0,0,0,F4,0,F4,0,F4,0,F4,0,F4,0,F4,0,F4,0,0,0};
 
-  int j = 0;
   for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
-    j = notes[i];
-    buzzer_set_period(j);
+    buzzer_set_period(notes[i]);
     __delay_cycles(1200000);
   }
 }
-
+// method to play the last part of the spongebob squarepants theme song
 void spongebobSong(){
   int notes[] = {G3,0,A4,0,B3,0,A4,0,0,B4,G3,0,0,D4,G3,0};
-  int j = 0;
+  
   for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
-    j = notes[i];
-    buzzer_set_period(j);
+    buzzer_set_period(notes[i]);
     __delay_cycles(2000000);
   }
-  //  P2DIR &= ~BIT6;
 }
-
+// method to play an old cellphone ring tone
 void nokiaSong(){
   int notes[] = {E4,0,D4,0,F4,0,G3,0,C5,0,B3,0,D4,0,E4,0,B3,0,A4,0,C5,E4,E4,0,A4,A4,A4,0,0};
-  int j = 0;
+
   for(int i = 0; i < sizeof(notes)/sizeof(*notes); i++) {
-    j = notes[i];
-    buzzer_set_period(j);
+    buzzer_set_period(notes[i]);
     __delay_cycles(3000000);
   }  
 }
